@@ -2,6 +2,7 @@ package com.example.ivancrnogorac.chatapplication2017.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
@@ -36,7 +38,15 @@ public class HomeActivity extends AppCompatActivity {
 
     @ItemClick
     void listViewItemClicked(Conversation conversation) {
+        Log.d("TAG", "clicked" + conversation.getTitle());
 
+        ConversationActivity_.intent(this)
+                .conversation(conversation).start();
+    }
+
+    @Click
+    void fab(){
+        CreateConversationActivity_.intent(this).start();
     }
 
 }

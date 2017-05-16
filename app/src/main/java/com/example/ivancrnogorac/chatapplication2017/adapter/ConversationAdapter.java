@@ -6,10 +6,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.ivancrnogorac.chatapplication2017.dao.ConversationDao;
+import com.example.ivancrnogorac.chatapplication2017.eventBus.OttoBus;
+import com.example.ivancrnogorac.chatapplication2017.eventBus.event.ConversationsUpdatedEvent;
 import com.example.ivancrnogorac.chatapplication2017.model.BaseModel;
 import com.example.ivancrnogorac.chatapplication2017.model.Conversation;
 import com.example.ivancrnogorac.chatapplication2017.view.ConversationItemView;
 import com.example.ivancrnogorac.chatapplication2017.view.ConversationItemView_;
+import com.squareup.otto.Subscribe;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -30,11 +33,16 @@ public class ConversationAdapter extends BaseAdapter {
     private List<Conversation> conversations = new ArrayList<>();
     @Bean
     ConversationDao conversationDao;
+
+    @Bean
+    OttoBus bus;
+
+
     @AfterInject
     void init(){
-        setConversations(conversationDao.getConversations());
+        bus.register(this);
+        //conversationDao.write(new Conversation (null, "Conversation"));
     }
-
 
     @RootContext
     Context context;
@@ -64,7 +72,6 @@ public class ConversationAdapter extends BaseAdapter {
         }
 
         conversationItemView.bind(getItem(position));
-
         return conversationItemView;
     }
 
@@ -72,5 +79,9 @@ public class ConversationAdapter extends BaseAdapter {
         this.conversations = conversations;
         notifyDataSetChanged();
 
+    }
+    @Subscribe
+    public void conversationsUpdated (ConversationsUpdatedEvent event) {
+        setConversations(conversationDao.getConversations());
     }
 }

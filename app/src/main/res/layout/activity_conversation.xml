@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ivancrnogorac.chatapplication2017.activity.ConversationActivity">
+
+    <android.support.v7.app.AlertController.RecycleListView
+        android:id="@+id/recyclerView"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </android.support.v7.app.AlertController.RecycleListView>
+
+    <fragment
+        android:name="com.example.ivancrnogorac.chatapplication2017.fragment.CreateMessageFragment_"
+        android:tag="createMessageFragment"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
